@@ -1,4 +1,4 @@
-import trophy from "../assets/illus-trophy.png";
+
 import { CheckBadge } from "./icons";
 
 type Step = {
