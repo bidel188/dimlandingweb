@@ -52,7 +52,7 @@ const STEPS: Step[] = [
 
 export default function Roadmap() {
   return (
-    <section id="chinh-phuc" className="relative overflow-hidden bg-gradient-to-b from-indigo-950 via-indigo-900 to-purple-900 py-20">
+    <section id="chinh-phuc" className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-indigo-950 via-indigo-900 to-purple-900 py-20">
       <div className="relative mx-auto max-w-7xl px-6 text-center">
         <h2 className="font-heading text-3xl font-extrabold text-white sm:text-4xl">
           HỌC FULL KIẾN THỨC &amp; KỸ NĂNG CHỈ VỚI 1 LỘ TRÌNH

@@ -2,7 +2,7 @@ import teacherPhoto from "../assets/teacher-photo.png";
 
 export default function Teacher() {
   return (
-    <section id="thay-co" className="bg-white py-20">
+    <section id="thay-co" className="scroll-mt-24 bg-white py-20">
       <div className="mx-auto max-w-4xl px-6 text-center">
         <h2 className="font-heading text-3xl font-extrabold text-brand-navy sm:text-4xl">
           ĐỘI NGŨ GIÁO VIÊN HẠNG A

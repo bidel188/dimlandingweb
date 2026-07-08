@@ -74,7 +74,7 @@ export default function RegistrationSection() {
           </div>
         </div>
 
-        <div className="mt-16">
+        <div id="feedback" className="mt-16 scroll-mt-24">
           <h3 className="text-center font-heading text-2xl font-extrabold text-brand-navy sm:text-3xl">
             Học viên tiêu biểu của <span className="text-brand-blue">LTP</span> 🙂
           </h3>

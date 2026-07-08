@@ -7,7 +7,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden bg-gradient-to-b from-white to-[rgba(241,133,8,0.1)]"
+      className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-white to-[rgba(241,133,8,0.1)]"
     >
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 py-16 lg:grid-cols-2 lg:py-24">
         <div>
