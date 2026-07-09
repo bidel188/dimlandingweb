@@ -14,6 +14,54 @@
   --font-body: "Be Vietnam Pro", system-ui, sans-serif;
 }
 
+@keyframes cta-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  15% {
+    transform: translateY(-20px);
+  }
+  30% {
+    transform: translateY(0);
+  }
+  45% {
+    transform: translateY(-8px);
+  }
+  60% {
+    transform: translateY(0);
+  }
+  70% {
+    transform: translateY(-3px);
+  }
+  80%, 100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-cta-bounce {
+  animation: cta-bounce 1.8s ease-out infinite;
+}
+
+@keyframes cta-zoom {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.animate-cta-zoom {
+  animation: cta-zoom 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-cta-bounce,
+  .animate-cta-zoom {
+    animation: none;
+  }
+}
+
 :root {
   color-scheme: light;
 }

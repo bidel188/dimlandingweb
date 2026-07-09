@@ -1,4 +1,5 @@
 import FeatureCards from "./components/FeatureCards";
+import FloatingCTA from "./components/FloatingCTA";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -24,6 +25,7 @@ function App() {
       <RegistrationSection />
       <Quote />
       <Footer />
+      <FloatingCTA />
     </div>
   );
 }

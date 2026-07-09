@@ -187,7 +187,7 @@ export default function RegistrationForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="inline-flex items-center gap-3 rounded-full bg-gradient-to-b from-brand-orange to-brand-orange-dark px-8 py-3 font-heading text-base font-bold text-white shadow-md transition hover:brightness-105 disabled:opacity-60"
+        className="inline-flex items-center gap-3 rounded-full bg-gradient-to-b from-brand-orange to-brand-orange-dark px-8 py-3 font-heading text-base font-bold text-white shadow-md transition hover:brightness-105 disabled:opacity-60 animate-cta-zoom motion-reduce:animate-none"
       >
         {status === "submitting" ? "Đang gửi..." : "Đăng kí nhận tư vấn"}
         <ArrowCircle className="h-6 w-6" />
