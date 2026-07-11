@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import studentPhoto from "../assets/student-photo.png";
 import t1 from "../assets/testimonial-1.png";
 import t2 from "../assets/testimonial-2.png";
@@ -6,6 +7,8 @@ import t4 from "../assets/testimonial-4.png";
 import t5 from "../assets/testimonial-5.png";
 import t6 from "../assets/testimonial-6.png";
 import RegistrationForm from "./RegistrationForm";
+import { Reveal, StaggerGroup, fadeInUp, cardHover, useTilt } from "../lib/motion";
+import Blob from "./decor/Blob";
 
 const TESTIMONIALS = [
   {
@@ -40,15 +43,52 @@ const TESTIMONIALS = [
   },
 ];
 
+type Testimonial = (typeof TESTIMONIALS)[number];
+
+function TestimonialCard({ item }: { item: Testimonial }) {
+  const { rotateX, rotateY, onMouseMove, onMouseLeave } = useTilt();
+
+  return (
+    <motion.div
+      variants={fadeInUp}
+      {...cardHover}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      style={{ rotateX, rotateY, transformPerspective: 800 }}
+      className="overflow-hidden rounded-2xl border border-slate-100 shadow-card"
+    >
+      <img src={item.photo} alt={item.name} className="h-36 w-full object-cover" />
+      <div className="p-4">
+        <p className="font-heading text-sm font-bold text-brand-blue">{item.name}</p>
+        <p className="mt-1 text-xs leading-relaxed text-slate-600">{item.text}</p>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function RegistrationSection() {
   return (
-    <section id="dang-ky" className="bg-gradient-to-b from-sky-100 to-brand-blue py-20">
-      <div className="mx-auto max-w-6xl rounded-3xl bg-white p-6 shadow-2xl sm:p-10">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
-          <div className="relative flex flex-col justify-end">
+    <section id="dang-ky" className="relative overflow-hidden bg-gradient-to-b from-sky-100 to-brand-blue py-20">
+      <div className="relative mx-auto max-w-6xl rounded-3xl bg-white p-6 shadow-2xl sm:p-10">
+        <Blob className="-right-16 -top-16 h-72 w-72 text-brand-blue/10 blur-3xl" />
+        <div className="relative grid grid-cols-1 gap-10 lg:grid-cols-2">
+          <Reveal className="relative flex flex-col justify-end">
             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-orange to-brand-orange-dark px-8 pb-4 pt-8">
               <p className="font-heading text-2xl font-extrabold text-white">Tặng Bạn Code:</p>
-              <p className="font-heading text-4xl font-extrabold text-yellow-300">LTP2026</p>
+              <p className="text-gradient-gold font-heading text-4xl font-extrabold">LTP2026</p>
+
+              <div className="relative mt-4">
+                <span
+                  aria-hidden
+                  className="absolute left-0 top-0 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white"
+                />
+                <span
+                  aria-hidden
+                  className="absolute right-0 top-0 h-6 w-6 -translate-y-1/2 translate-x-1/2 rounded-full bg-white"
+                />
+                <div aria-hidden className="border-t-2 border-dashed border-white/50" />
+              </div>
+
               <div className="mt-4 flex w-fit items-center divide-x divide-white/40 rounded-full border-2 border-white/70 text-white">
                 <span className="px-4 py-2 text-center text-xs leading-tight">
                   GIẢM NGAY
@@ -67,11 +107,11 @@ export default function RegistrationSection() {
               alt="Học viên LTP Education"
               className="relative -mt-6 max-h-[420px] w-auto self-center object-contain"
             />
-          </div>
+          </Reveal>
 
-          <div>
+          <Reveal>
             <RegistrationForm />
-          </div>
+          </Reveal>
         </div>
 
         <div id="feedback" className="mt-16 scroll-mt-24">
@@ -79,17 +119,11 @@ export default function RegistrationSection() {
             Học viên tiêu biểu của <span className="text-brand-blue">LTP</span> 🙂
           </h3>
 
-          <div className="mt-8 grid grid-cols-1 gap-6 rounded-3xl border-2 border-brand-orange p-4 sm:grid-cols-2 sm:p-6 lg:grid-cols-3">
+          <StaggerGroup className="mt-8 grid grid-cols-1 gap-6 rounded-3xl border-2 border-brand-orange p-4 sm:grid-cols-2 sm:p-6 lg:grid-cols-3">
             {TESTIMONIALS.map((item) => (
-              <div key={item.name} className="overflow-hidden rounded-2xl border border-slate-100 shadow-sm">
-                <img src={item.photo} alt={item.name} className="h-36 w-full object-cover" />
-                <div className="p-4">
-                  <p className="font-heading text-sm font-bold text-brand-blue">{item.name}</p>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-600">{item.text}</p>
-                </div>
-              </div>
+              <TestimonialCard key={item.name} item={item} />
             ))}
-          </div>
+          </StaggerGroup>
         </div>
       </div>
     </section>

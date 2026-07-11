@@ -1,14 +1,23 @@
 import teacherPhoto from "../assets/teacher-photo.png";
+import { Reveal, cardHover, useTilt } from "../lib/motion";
 
 export default function Teacher() {
+  const { rotateX, rotateY, onMouseMove, onMouseLeave } = useTilt();
+
   return (
-    <section id="thay-co" className="scroll-mt-24 bg-white py-20">
+    <section id="thay-co" className="scroll-mt-24 bg-white py-20 lg:py-24">
       <div className="mx-auto max-w-4xl px-6 text-center">
         <h2 className="font-heading text-3xl font-extrabold text-brand-navy sm:text-4xl">
           ĐỘI NGŨ GIÁO VIÊN HẠNG A
         </h2>
 
-        <div className="mt-10 flex flex-col items-center gap-6 rounded-3xl bg-gradient-to-br from-sky-500 to-brand-blue p-8 shadow-xl sm:flex-row sm:text-left">
+        <Reveal
+          {...cardHover}
+          onMouseMove={onMouseMove}
+          onMouseLeave={onMouseLeave}
+          style={{ rotateX, rotateY, transformPerspective: 800 }}
+          className="mt-10 flex flex-col items-center gap-6 rounded-3xl bg-gradient-to-br from-sky-500 to-brand-blue p-8 shadow-card sm:flex-row sm:text-left"
+        >
           <img
             src={teacherPhoto}
             alt="Thầy Quang Đức"
@@ -22,16 +31,7 @@ export default function Teacher() {
               <li>• 4 năm kinh nghiệm giảng dạy tiếng Anh</li>
             </ul>
           </div>
-        </div>
-
-        <div className="mt-6 flex justify-center gap-2">
-          {[0, 1, 2, 3].map((dot) => (
-            <span
-              key={dot}
-              className={`h-2 w-2 rounded-full ${dot === 1 ? "bg-brand-blue" : "bg-slate-300"}`}
-            />
-          ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

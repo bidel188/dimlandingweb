@@ -1,10 +1,11 @@
 import logo from "../assets/logo.png";
 import qrCode from "../assets/qr-code.png";
+import { Reveal } from "../lib/motion";
 
 export default function Footer() {
   return (
     <footer className="border-t border-slate-100 bg-white py-12">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-10 px-6 lg:grid-cols-[auto_auto_1fr]">
+      <Reveal className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-10 px-6 lg:grid-cols-[auto_auto_1fr]">
         <img src={logo} alt="LTP Education" className="h-28 w-28 rounded-full object-cover" />
 
         <div className="flex items-center gap-4">
@@ -28,7 +29,7 @@ export default function Footer() {
             Đẳng Bách Khoa Sài Gòn 34 - 34A Nguyễn Bỉnh Khiêm, Phường Hạnh Thông
           </p>
         </div>
-      </div>
+      </Reveal>
     </footer>
   );
 }

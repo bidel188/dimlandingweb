@@ -1,12 +1,16 @@
+import { motion } from "framer-motion";
 import illusGradcap from "../assets/illus-gradcap.png";
 import illusPhone from "../assets/illus-phone.png";
 import illusTeacherGuy from "../assets/illus-teacher-guy.png";
 import { CheckBadge } from "./icons";
+import { StaggerGroup, fadeInUp } from "../lib/motion";
+import Blob from "./decor/Blob";
 
 export default function Process() {
   return (
-    <section className="bg-gradient-to-b from-white to-slate-50 py-20">
-      <div className="mx-auto max-w-7xl px-6 text-center">
+    <section className="relative overflow-hidden bg-gradient-to-b from-white to-slate-50 py-20 lg:py-24">
+      <Blob className="-left-24 top-1/3 h-72 w-72 text-brand-blue/10 blur-3xl" />
+      <div className="relative mx-auto max-w-7xl px-6 text-center">
         <h2 className="font-heading text-3xl font-extrabold text-brand-navy sm:text-4xl">
           ĐỒNG HÀNH TỪNG BÀI HỌC
         </h2>
@@ -14,8 +18,8 @@ export default function Process() {
           Quy trình thăng hạng chuẩn B1 tại LTP
         </p>
 
-        <div className="mt-14 grid grid-cols-1 items-center gap-8 lg:grid-cols-[1fr_1.1fr_1fr]">
-          <div className="flex flex-col items-center gap-4">
+        <StaggerGroup className="mt-14 grid grid-cols-1 items-center gap-8 lg:grid-cols-[1fr_1.1fr_1fr]">
+          <motion.div variants={fadeInUp} className="flex flex-col items-center gap-4">
             <div className="flex aspect-square w-56 flex-col items-center justify-center gap-4 rounded-full bg-sky-100 p-6 text-center">
               <img src={illusGradcap} alt="" className="h-20 w-auto" />
               <p className="font-heading text-sm font-bold text-brand-navy">
@@ -40,13 +44,13 @@ export default function Process() {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="flex justify-center">
+          <motion.div variants={fadeInUp} className="flex justify-center">
             <img src={illusPhone} alt="Chấm chữa bài trực tuyến" className="w-full max-w-sm" />
-          </div>
+          </motion.div>
 
-          <div className="flex flex-col items-center gap-4">
+          <motion.div variants={fadeInUp} className="flex flex-col items-center gap-4">
             <img src={illusTeacherGuy} alt="" className="h-40 w-auto" />
             <p className="font-heading text-2xl font-extrabold text-brand-orange">
               LỚP 2{" "}
@@ -62,8 +66,8 @@ export default function Process() {
                 </p>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </StaggerGroup>
       </div>
     </section>
   );

@@ -1,4 +1,7 @@
+import { motion } from "framer-motion";
 import { CheckBadge } from "./icons";
+import { Reveal, StaggerGroup, fadeInUp, cardHover, useTilt } from "../lib/motion";
+import Blob from "./decor/Blob";
 
 type Card = {
   badge: string;
@@ -35,9 +38,43 @@ const CARDS: Card[] = [
   },
 ];
 
+function FeatureCardItem({ card }: { card: Card }) {
+  const { rotateX, rotateY, onMouseMove, onMouseLeave } = useTilt();
+
+  return (
+    <motion.div
+      variants={fadeInUp}
+      {...cardHover}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      style={{ rotateX, rotateY, transformPerspective: 800 }}
+      className="rounded-3xl bg-gradient-to-b from-brand-orange to-brand-orange-dark p-5 shadow-card"
+    >
+      <div className="flex items-baseline gap-3 px-2 pb-4 text-white">
+        <span className="text-gradient-gold font-heading text-4xl font-extrabold">
+          {card.badge}
+        </span>
+        <span className="font-heading text-sm font-bold uppercase leading-tight">
+          {card.title}
+        </span>
+      </div>
+      <div className="space-y-4 rounded-2xl bg-white p-5">
+        {card.bullets.map((bullet) => (
+          <div key={bullet} className="flex items-start gap-3">
+            <CheckBadge className="mt-0.5 h-5 w-5" />
+            <p className="text-sm leading-relaxed text-slate-600">{bullet}</p>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function FeatureCards() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-indigo-50 via-sky-50 to-indigo-100 py-20">
+      <Blob className="-left-16 top-10 h-72 w-72 text-brand-blue/10 blur-3xl" />
+      <Blob className="-right-20 bottom-0 h-80 w-80 text-brand-orange/10 blur-3xl" />
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="text-center">
           <h2 className="font-heading text-3xl font-extrabold text-brand-blue sm:text-4xl">
@@ -51,31 +88,13 @@ export default function FeatureCards() {
           </div>
         </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <StaggerGroup className="mt-12 grid gap-6 md:grid-cols-3">
           {CARDS.map((card) => (
-            <div
-              key={card.badge}
-              className="rounded-3xl bg-gradient-to-b from-brand-orange to-brand-orange-dark p-5 shadow-lg"
-            >
-              <div className="flex items-baseline gap-3 px-2 pb-4 text-white">
-                <span className="font-heading text-4xl font-extrabold">{card.badge}</span>
-                <span className="font-heading text-sm font-bold uppercase leading-tight">
-                  {card.title}
-                </span>
-              </div>
-              <div className="space-y-4 rounded-2xl bg-white p-5">
-                {card.bullets.map((bullet) => (
-                  <div key={bullet} className="flex items-start gap-3">
-                    <CheckBadge className="mt-0.5 h-5 w-5" />
-                    <p className="text-sm leading-relaxed text-slate-600">{bullet}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <FeatureCardItem key={card.badge} card={card} />
           ))}
-        </div>
+        </StaggerGroup>
 
-        <div className="relative mt-14 overflow-hidden rounded-3xl bg-gradient-to-b from-brand-blue to-brand-blue-dark px-8 py-10 text-center shadow-2xl shadow-blue-300/50">
+        <Reveal className="relative mt-14 overflow-hidden rounded-3xl bg-gradient-to-b from-brand-blue to-brand-blue-dark px-8 py-10 text-center shadow-2xl shadow-blue-300/50">
           <p className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
             HÀNG TRĂM HỌC VIÊN
           </p>
@@ -88,7 +107,7 @@ export default function FeatureCards() {
           <p className="font-heading text-2xl font-extrabold text-brand-cyan sm:text-3xl">
             VỚI MỘT LỘ TRÌNH
           </p>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

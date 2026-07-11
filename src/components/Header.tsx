@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import logo from "../assets/logo.png";
 
 const NAV_ITEMS = [
@@ -11,6 +12,8 @@ const NAV_ITEMS = [
 export default function Header() {
   const [activeId, setActiveId] = useState(NAV_ITEMS[0].id);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const sections = NAV_ITEMS.map((item) => document.getElementById(item.id))
@@ -31,6 +34,7 @@ export default function Header() {
         }
       }
       setActiveId(current);
+      setIsScrolled(window.scrollY > 0);
     }
 
     updateActive();
@@ -43,7 +47,11 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur">
+    <header
+      className={`sticky top-0 z-50 bg-white/95 backdrop-blur transition-shadow duration-300 ${
+        isScrolled ? "shadow-card" : "shadow-none"
+      }`}
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-3">
         <a href="#top" className="flex shrink-0 items-center gap-2">
           <img src={logo} alt="LTP Education" className="h-14 w-14 rounded-full object-cover" />
@@ -57,13 +65,22 @@ export default function Header() {
                 key={item.id}
                 href={`#${item.id}`}
                 onClick={() => setActiveId(item.id)}
-                className={`font-heading text-sm font-bold uppercase tracking-wide transition ${
-                  isActive
-                    ? "relative text-brand-orange after:absolute after:-bottom-2 after:left-1/2 after:h-1 after:w-6 after:-translate-x-1/2 after:rounded-full after:bg-brand-orange"
-                    : "text-brand-navy hover:text-brand-orange"
+                className={`relative font-heading text-sm font-bold uppercase tracking-wide transition ${
+                  isActive ? "text-brand-orange" : "text-brand-navy hover:text-brand-orange"
                 }`}
               >
                 {item.label}
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="absolute -bottom-2 left-1/2 h-1 w-6 -translate-x-1/2 rounded-full bg-brand-orange"
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : { type: "spring", stiffness: 380, damping: 30 }
+                    }
+                  />
+                )}
               </a>
             );
           })}
@@ -104,30 +121,41 @@ export default function Header() {
         </div>
       </div>
 
-      {isMenuOpen && (
-        <nav className="flex flex-col gap-1 border-t border-slate-100 px-6 py-4 lg:hidden">
-          {NAV_ITEMS.map((item) => {
-            const isActive = activeId === item.id;
-            return (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                onClick={() => {
-                  setActiveId(item.id);
-                  setIsMenuOpen(false);
-                }}
-                className={`rounded-lg px-3 py-2 font-heading text-sm font-bold uppercase tracking-wide transition ${
-                  isActive
-                    ? "bg-brand-orange-light text-brand-orange"
-                    : "text-brand-navy hover:bg-slate-50"
-                }`}
-              >
-                {item.label}
-              </a>
-            );
-          })}
-        </nav>
-      )}
+      <AnimatePresence initial={false}>
+        {isMenuOpen && (
+          <motion.nav
+            key="mobile-menu"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25, ease: "easeInOut" }}
+            className="flex flex-col gap-1 overflow-hidden border-t border-slate-100 px-6 lg:hidden"
+          >
+            <div className="flex flex-col gap-1 py-4">
+              {NAV_ITEMS.map((item) => {
+                const isActive = activeId === item.id;
+                return (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    onClick={() => {
+                      setActiveId(item.id);
+                      setIsMenuOpen(false);
+                    }}
+                    className={`rounded-lg px-3 py-2 font-heading text-sm font-bold uppercase tracking-wide transition ${
+                      isActive
+                        ? "bg-brand-orange-light text-brand-orange"
+                        : "text-brand-navy hover:bg-slate-50"
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                );
+              })}
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
 
       <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
     </header>

@@ -12,6 +12,8 @@
   --color-brand-cyan: #38bdf8;
   --font-heading: "Baloo 2", "Be Vietnam Pro", system-ui, sans-serif;
   --font-body: "Be Vietnam Pro", system-ui, sans-serif;
+  --shadow-card: 0 8px 24px -8px rgba(123, 21, 72, 0.18);
+  --shadow-card-hover: 0 16px 36px -10px rgba(123, 21, 72, 0.28);
 }
 
 @keyframes cta-bounce {
@@ -74,4 +76,25 @@ body {
 
 .font-heading {
   font-family: var(--font-heading);
+}
+
+.text-gradient-brand {
+  background-image: linear-gradient(135deg, var(--color-brand-orange), var(--color-brand-maroon));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-cool {
+  background-image: linear-gradient(135deg, var(--color-brand-cyan), var(--color-brand-blue));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-gold {
+  background-image: linear-gradient(135deg, #ffffff, #fde68a);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }

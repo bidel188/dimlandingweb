@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { motion } from "framer-motion";
 import { ArrowCircle } from "./icons";
 
 // Dán URL Web App sau khi deploy Google Apps Script (xem GOOGLE_SHEETS_SETUP.md)
@@ -61,16 +62,21 @@ export default function RegistrationForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-8 text-center">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className="rounded-2xl border border-emerald-200 bg-emerald-50 p-8 text-center"
+      >
         <p className="text-lg font-medium text-emerald-700">
           Cảm ơn bạn đã đăng ký! Chúng tôi sẽ liên hệ sớm nhất.
         </p>
-      </div>
+      </motion.div>
     );
   }
 
   const inputClass =
-    "w-full rounded-lg border-none bg-sky-50 px-4 py-3 text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-blue";
+    "w-full rounded-lg border border-transparent bg-sky-50 px-4 py-3 text-brand-navy transition focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-brand-blue/30";
 
   return (
     <form onSubmit={handleSubmit} className="w-full space-y-5">
